@@ -86,33 +86,36 @@ adb shell pm enable --user 0 com.autoxt.service.base
 - 影像辅助页和回放页都能切换；
 - 无 FATAL EXCEPTION。
 
-## 六、实际回放页对比（不是全页面比）
+## 六、回放页：可运行，但功能不等价
 
 源码仓库：
 
 https://github.com/3171988184/AVMTest
 
-Demo 的回放页已经使用 X24 的结构移植：
+不能把 Demo 的 3 个 Java 文件 / 157 行，当成 X24 的同功能替代。Demo 只是回放页的简化壳。
 
-- `activity_record_main.xml`
-- `fragment_record_list.xml`
-- `item_playback.xml`
-- `PlaybackActivity`
-- `PlaybackListFragment`
-- `PlaybackAdapter`
+| 功能项 | X24Z01 回放页 | Demo 回放页 |
+|---|---|---|
+| USB/TF 插拔 | UsbUtil、UsbStateChangeListener | 无 |
+| 目录/文件扫描 | PlaybackPresenterImpl、多级目录 | 无，固定 mock 列表 |
+| 真实视频播放 | PlaybackVideoActivity | 无，模拟计时画面 |
+| 滚动条 | CustomScrollBar | 无 |
+| 无文件/无 TF 状态 | 有 | 无 |
+| 格式化/开关设置 | 真实 Fragment | 占位演示页 |
+| 退出/广播 | CloseAssistReceiver | 无 |
 
-数据是模拟录像，不含 USB、录像文件、播放器和 CustomScrollBar，所以这是“回放页面壳”的对比，不是完整回放功能对比。
+所以下面只是“代码规模参考”，不是同功能代码减少：
 
-| 回放页对比项 | X24Z01（8 个 flavor） | AVMTest Demo（3 个 profile） | 变化 |
-|---|---:|---:|---:|
-| Java 文件 | 23 个 | 3 个 | -87.0% |
-| Java 行数 | 4,427 行 | 157 行 | -96.5% |
-| layout 文件 | 29 个（含 hdpi） | 3 个 | -89.7% |
-| layout 行数 | 1,445 行 | 119 行 | -91.8% |
-| 页面入口 Activity | 7 份 RecordMainActivity | 1 份 PlaybackActivity | 1 套 |
-| 渠道配置 | 8 个 flavor | 3 份 profile JSON | 配置化 |
+| 项目 | X24Z01 | Demo | 说明 |
+|---|---:|---:|---|
+| Java 文件 | 23 个 | 3 个 | 功能不等价 |
+| Java 行数 | 4,427 行 | 157 行 | 仅页面壳 |
+| layout 文件 | 29 个 | 3 个 | 仅页面壳 |
+| layout 行数 | 1,445 行 | 119 行 | 仅页面壳 |
 
-影像辅助页不参与对比：X24 的画面由 `CameraService`/native 输出，空项目里无法复现，Demo 只保留了占位。
+Demo 另外新增了模拟播放器、格式化、开关设置页，但这些不在上面的 3 个 Java/3 个 layout 里；即使加上，也不等于 X24 的完整回放逻辑。
+
+影像辅助页不参与对比：X24 画面来自 `CameraService`/native，Demo 只是占位。
 
 ## 七、回放页交互说明
 
