@@ -1,0 +1,17 @@
+{
+  "model": "d15_tf",
+  "title": "影像辅助 · d15_tf",
+  "layout": "expanded",
+  "features": ["AVM", "BSD", "RECORD", "TF"],
+  "gridColumns": 3,
+  "playbackCount": 5,
+  "cameras": [
+    {"index": 0, "name": "左前", "position": "front_left"},
+    {"index": 1, "name": "右前", "position": "front_right"},
+    {"index": 2, "name": "左后", "position": "rear_left"},
+    {"index": 3, "name": "右后", "position": "rear_right"},
+    {"index": 4, "name": "前视", "position": "front_view"},
+    {"index": 5, "name": "后视", "position": "rear_view"}
+  ],
+  "viewIds": {"front_left": 201, "front_right": 202, "rear_left": 203, "rear_right": 204, "front_view": 205, "rear_view": 206}
+}

@@ -1,0 +1,13 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.AVMTest" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">#0F766E</item>
+        <item name="colorPrimaryVariant">#0D2745</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="colorSecondary">#2DD4BF</item>
+        <item name="colorSecondaryVariant">#0F766E</item>
+        <item name="colorOnSecondary">#0B1220</item>
+        <item name="android:statusBarColor">#0D2745</item>
+        <item name="android:navigationBarColor">#0D2745</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+</resources>

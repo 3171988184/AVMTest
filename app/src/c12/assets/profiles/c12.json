@@ -1,0 +1,15 @@
+{
+  "model": "c12",
+  "title": "影像辅助 · c12",
+  "layout": "compact",
+  "features": ["AVM", "BSD"],
+  "gridColumns": 2,
+  "playbackCount": 3,
+  "cameras": [
+    {"index": 0, "name": "左前", "position": "front_left"},
+    {"index": 1, "name": "右前", "position": "front_right"},
+    {"index": 2, "name": "左后", "position": "rear_left"},
+    {"index": 3, "name": "右后", "position": "rear_right"}
+  ],
+  "viewIds": {"front_left": 101, "front_right": 102, "rear_left": 103, "rear_right": 104}
+}

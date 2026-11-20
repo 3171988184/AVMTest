@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">影像辅助 Profile Demo</string>
+    <string name="tab_assist">影像辅助</string>
+    <string name="tab_playback">回放</string>
+</resources>
