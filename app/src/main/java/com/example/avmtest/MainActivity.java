@@ -1,5 +1,6 @@
 package com.example.avmtest;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         contentAssist = findViewById(R.id.content_assist);
         contentPlayback = findViewById(R.id.content_playback);
         tabAssist.setOnClickListener(v -> showTab(true));
-        tabPlayback.setOnClickListener(v -> showTab(false));
+        tabPlayback.setOnClickListener(v -> startActivity(new Intent(this, PlaybackActivity.class)));
         showTab(true);
     }
 
@@ -129,3 +130,4 @@ public class MainActivity extends AppCompatActivity {
         return Math.round(v * getResources().getDisplayMetrics().density);
     }
 }
+

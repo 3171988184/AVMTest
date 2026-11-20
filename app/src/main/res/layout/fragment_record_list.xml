@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent">
+
+    <ImageButton
+        android:id="@+id/btn_back"
+        android:layout_width="109dp"
+        android:layout_height="97dp"
+        android:layout_marginLeft="169dp"
+        android:layout_marginTop="113dp"
+        android:background="#1E293B"
+        android:contentDescription="返回" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recy_playback"
+        android:layout_width="1284dp"
+        android:layout_height="480dp"
+        android:layout_marginLeft="313dp"
+        android:layout_marginTop="115dp"
+        android:overScrollMode="never" />
+
+    <TextView
+        android:id="@+id/tv_no_file"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="154dp"
+        android:text="@string/str_no_file"
+        android:textColor="#FFFFFF"
+        android:textSize="40sp"
+        android:visibility="gone" />
+</RelativeLayout>

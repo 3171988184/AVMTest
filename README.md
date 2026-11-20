@@ -86,23 +86,33 @@ adb shell pm enable --user 0 com.autoxt.service.base
 - 影像辅助页和回放页都能切换；
 - 无 FATAL EXCEPTION。
 
-## 六、Demo 验证范围（不是同页面代码对比）
+## 六、实际回放页对比（不是全页面比）
 
 源码仓库：
 
 https://github.com/3171988184/AVMTest
 
-必须说明：Demo 的影像辅助页和回放页是为了验证结构重新画的简化原型，**不是从 X24Z01 复制的实际页面**。
+Demo 的回放页已经使用 X24 的结构移植：
 
-- Demo 影像辅助页：自绘 AVM 占位 + 动态功能标签 + 相机网格；
-- Demo 回放页：模拟录像列表；
-- X24Z01 的对应页面实际是 `MainActivity` + `Fragment`（如 `RecordListFragment`）+ `RecyclerView`/`CustomScrollBar`，页面结构和资源都不同。
+- `activity_record_main.xml`
+- `fragment_record_list.xml`
+- `item_playback.xml`
+- `PlaybackActivity`
+- `PlaybackListFragment`
+- `PlaybackAdapter`
 
-因此，不能拿 Demo 的 6 个 Java 文件 / 408 行去和 X24Z01 的 `MainActivity`/`RecordMainActivity` 直接算“同功能代码减少 88.7%”。原始对比表已撤回，避免把原型页面当成实际页面。
+数据是模拟录像，不含 USB、录像文件、播放器和 CustomScrollBar，所以这是“回放页面壳”的对比，不是完整回放功能对比。
 
-Demo 只证明一件事：**3 个渠道包可以共用 1 套 Activity，通过 profile + 2 套 layout 呈现不同相机数、列数、回放条数和布局形态。**
+| 回放页对比项 | X24Z01（8 个 flavor） | AVMTest Demo（3 个 profile） | 变化 |
+|---|---:|---:|---:|
+| Java 文件 | 23 个 | 3 个 | -87.0% |
+| Java 行数 | 4,427 行 | 153 行 | -96.5% |
+| layout 文件 | 29 个（含 hdpi） | 3 个 | -89.7% |
+| layout 行数 | 1,445 行 | 119 行 | -91.8% |
+| 页面入口 Activity | 7 份 RecordMainActivity | 1 份 PlaybackActivity | 1 套 |
+| 渠道配置 | 8 个 flavor | 3 份 profile JSON | 配置化 |
 
-如果要做真正的同页面代码对比，需要先把 X24Z01 的 `activity_main`、`activity_record_main`、`fragment_record_list`、`item_playback` 及其依赖资源迁入 Demo，再逐文件统计。
+影像辅助页不参与对比：X24 的画面由 `CameraService`/native 输出，空项目里无法复现，Demo 只保留了占位。
 
 ## 七、边界
 
