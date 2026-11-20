@@ -106,7 +106,7 @@ Demo 的回放页已经使用 X24 的结构移植：
 | 回放页对比项 | X24Z01（8 个 flavor） | AVMTest Demo（3 个 profile） | 变化 |
 |---|---:|---:|---:|
 | Java 文件 | 23 个 | 3 个 | -87.0% |
-| Java 行数 | 4,427 行 | 153 行 | -96.5% |
+| Java 行数 | 4,427 行 | 157 行 | -96.5% |
 | layout 文件 | 29 个（含 hdpi） | 3 个 | -89.7% |
 | layout 行数 | 1,445 行 | 119 行 | -91.8% |
 | 页面入口 Activity | 7 份 RecordMainActivity | 1 份 PlaybackActivity | 1 套 |
