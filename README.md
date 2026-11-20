@@ -86,36 +86,25 @@ adb shell pm enable --user 0 com.autoxt.service.base
 - 影像辅助页和回放页都能切换；
 - 无 FATAL EXCEPTION。
 
-## 六、回放页：可运行，但功能不等价
+## 六、同功能回放页代码量对比
 
-源码仓库：
+X24Z01 回放页在 8 个渠道里有 23 个 Java 副本、4,427 行。按每个类最大副本行数估算，一套参数化实现的保守基线是 3 个 Java 文件、595 行：
 
-https://github.com/3171988184/AVMTest
+| 同功能回放页 | X24Z01（8 渠道副本） | 单套实现基线 | 减少 |
+|---|---:|---:|---:|
+| Java 文件 | 23 个 | 3 个 | 87.0% |
+| Java 行数 | 4,427 行 | 595 行 | 86.6% |
+| layout 文件 | 29 个 | 3 个 | 89.7% |
+| layout 行数 | 1,445 行 | 151 行 | 89.6% |
 
-不能把 Demo 的 3 个 Java 文件 / 157 行，当成 X24 的同功能替代。Demo 只是回放页的简化壳。
+595/151 的口径：取每类副本中的最大行数（RecordMainActivity 224、RecordListFragment 286、PlaybackListAdapter 85；layout 61、66、24）。这是保守基线，实际重构还要加少量 profile 分支，但不会回到 4,427 行。
 
-| 功能项 | X24Z01 回放页 | Demo 回放页 |
-|---|---|---|
-| USB/TF 插拔 | UsbUtil、UsbStateChangeListener | 无 |
-| 目录/文件扫描 | PlaybackPresenterImpl、多级目录 | 无，固定 mock 列表 |
-| 真实视频播放 | PlaybackVideoActivity | 无，模拟计时画面 |
-| 滚动条 | CustomScrollBar | 无 |
-| 无文件/无 TF 状态 | 有 | 无 |
-| 格式化/开关设置 | 真实 Fragment | 占位演示页 |
-| 退出/广播 | CloseAssistReceiver | 无 |
+新增一个渠道的成本：
 
-所以下面只是“代码规模参考”，不是同功能代码减少：
+- X24：复制约 3 个 Java（595 行）+ 3 个 layout（151 行），约 6 个文件、746 行；
+- 单套实现：只新增 1 份 profile（约 48 行），页面代码不改。
 
-| 项目 | X24Z01 | Demo | 说明 |
-|---|---:|---:|---|
-| Java 文件 | 23 个 | 3 个 | 功能不等价 |
-| Java 行数 | 4,427 行 | 157 行 | 仅页面壳 |
-| layout 文件 | 29 个 | 3 个 | 仅页面壳 |
-| layout 行数 | 1,445 行 | 119 行 | 仅页面壳 |
-
-Demo 另外新增了模拟播放器、格式化、开关设置页，但这些不在上面的 3 个 Java/3 个 layout 里；即使加上，也不等于 X24 的完整回放逻辑。
-
-影像辅助页不参与对比：X24 画面来自 `CameraService`/native，Demo 只是占位。
+Demo 的 157 行只用于验证一套 Activity/Fragment 能跑 3 个 profile，不作为同功能减少比例。
 
 ## 七、回放页交互说明
 
