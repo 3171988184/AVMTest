@@ -36,8 +36,11 @@ public class PlaybackAdapter extends RecyclerView.Adapter<PlaybackAdapter.Holder
         String name = names.get(position);
         holder.name.setText(name);
         holder.bg.setText("▶");
-        holder.itemView.setOnClickListener(v ->
-                Toast.makeText(context, name, Toast.LENGTH_SHORT).show());
+        holder.itemView.setOnClickListener(v -> {
+            android.content.Intent intent = new android.content.Intent(context, PlaybackVideoActivity.class);
+            intent.putExtra("name", name);
+            context.startActivity(intent);
+        });
     }
 
     @Override

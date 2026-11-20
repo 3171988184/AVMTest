@@ -4,7 +4,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -24,20 +23,24 @@ public class PlaybackActivity extends AppCompatActivity {
         RadioButton switchSetting = findViewById(R.id.rb_switch);
 
         group.setOnCheckedChangeListener((g, checkedId) -> {
-            if (checkedId == R.id.rb_format) {
-                Toast.makeText(this, "Demo 未实现格式化", Toast.LENGTH_SHORT).show();
-                playback.setChecked(true);
+            if (checkedId == R.id.rb_playback) {
+                show(new PlaybackListFragment());
+            } else if (checkedId == R.id.rb_format) {
+                show(DemoTextFragment.newInstance("格式化（演示）", "未接入真实存储，仅验证页面结构"));
             } else if (checkedId == R.id.rb_switch) {
-                Toast.makeText(this, "Demo 未实现开关设置", Toast.LENGTH_SHORT).show();
-                playback.setChecked(true);
+                show(new SwitchDemoFragment());
             }
         });
 
         if (savedInstanceState == null) {
-            Fragment fragment = new PlaybackListFragment();
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fl_container, fragment)
-                    .commit();
+            playback.setChecked(true);
+            show(new PlaybackListFragment());
         }
+    }
+
+    private void show(Fragment fragment) {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fl_container, fragment)
+                .commitAllowingStateLoss();
     }
 }

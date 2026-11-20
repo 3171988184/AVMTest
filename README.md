@@ -114,7 +114,19 @@ Demo 的回放页已经使用 X24 的结构移植：
 
 影像辅助页不参与对比：X24 的画面由 `CameraService`/native 输出，空项目里无法复现，Demo 只保留了占位。
 
-## 七、Android Studio 安装报错
+## 七、回放页交互说明
+
+- 点击录像卡片：进入模拟播放器，有播放/暂停、进度条、时间、返回；
+- 顶部 `影像回放`：显示录像列表；
+- `格式化`：显示格式化演示页；
+- `开关设置`：按 profile.features 显示 AVM/BSD 等开关；
+- 每个 profile 只生成 3/5/4 条录像，不再把一条录像按相机拆成多条。
+
+注意：Demo 没有真实录像文件，播放器是计时模拟，不是真正的 H.264/H.265 解码播放；真实播放需要接入录像文件 + MediaPlayer/ExoPlayer。
+
+对比表只统计回放列表主体（PlaybackActivity/PlaybackListFragment/PlaybackAdapter + 三个 layout），不含新增的模拟播放器、格式化、开关设置演示页。
+
+## 八、Android Studio 安装报错
 
 Android Studio 直接 Run 报：
 
@@ -133,15 +145,14 @@ adb shell pm enable --user 0 com.autoxt.service.base
 项目里有脚本：
 
 ```powershell
-.	ools\install_demo.ps1 -Variant c12
-.	ools\install_demo.ps1 -Variant d15_tf
-.	ools\install_demo.ps1 -Variant q12
+.\tools\install_demo.ps1 -Variant c12
+.\tools\install_demo.ps1 -Variant d15_tf
+.\tools\install_demo.ps1 -Variant q12
 ```
 
 脚本会临时停用校验服务、安装、启动 APP，最后恢复服务。只建议在测试机上这样做。
 
-## 八、边界
-
+## 九、边界
 
 这是 UI/配置验证，不含真实 AVM 拼接、CAN、录像文件、native 标定；回放列表是模拟数据。  
 目标只是验证：**渠道包只换 profile/资源，不复制 Activity；同一 Activity 可以通过 layout/profile 呈现不同页面。**

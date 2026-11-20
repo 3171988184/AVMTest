@@ -42,10 +42,8 @@ public class PlaybackListFragment extends Fragment {
 
     private List<String> mockNames() {
         List<String> names = new ArrayList<>();
-        for (int i = 0; i < profile.playbackCount * 6; i++) {
-            names.add(String.format("%s_%02d-%02d.mp4",
-                    profile.cameras.isEmpty() ? "cam" : profile.cameras.get(i % profile.cameras.size()).name,
-                    9 + (i / 6), 10 + (i % 6) * 3));
+        for (int i = 0; i < profile.playbackCount; i++) {
+            names.add(String.format("录像_%02d.mp4", i + 1));
         }
         return names;
     }
