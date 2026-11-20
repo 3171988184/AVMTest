@@ -86,7 +86,26 @@ adb shell pm enable --user 0 com.autoxt.service.base
 - 影像辅助页和回放页都能切换；
 - 无 FATAL EXCEPTION。
 
-## 六、边界
+## 六、和 X24Z01 同功能范围对比
+
+源码仓库：
+
+https://github.com/3171988184/AVMTest
+
+只对比“影像辅助页 + 回放列表页”的页面壳，不含录像播放、标定、BSD、CAN、CameraService。
+
+| 对比项 | X24Z01（同功能页面壳） | AVMTest Demo | 变化 |
+|---|---:|---:|---:|
+| 页面入口 Java 文件 | 15 个（MainActivity 8 + RecordMainActivity 7） | 6 个（1 个 MainActivity + 5 个支撑类） | -60% |
+| 页面入口 Java 行数 | 3,609 行 | 408 行 | -88.7% |
+| 同功能 layout 文件 | 39 个（含 hdpi） | 2 个 | -94.9% |
+| 同功能 layout 行数 | 1,615 行 | 249 行 | -84.6% |
+| 渠道配置 | 8 个 flavor 复制页面 | 3 份 profile JSON（48 行） | 配置化 |
+| 页面入口 Activity | 15 份（8+7） | 1 份 MainActivity | 1 套 |
+
+注意：这是**页面壳/车型适配层**的对比，不是整个 X24Z01 工程的代码下降。Demo 的影像是自绘占位，回放是模拟列表，不含真实 AVM/CAN/录像/标定。
+
+## 七、边界
 
 这是 UI/配置验证，不含真实 AVM 拼接、CAN、录像文件、native 标定；回放列表是模拟数据。  
 目标只是验证：**渠道包只换 profile/资源，不复制 Activity；同一 Activity 可以通过 layout/profile 呈现不同页面。**
