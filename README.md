@@ -114,7 +114,34 @@ Demo 的回放页已经使用 X24 的结构移植：
 
 影像辅助页不参与对比：X24 的画面由 `CameraService`/native 输出，空项目里无法复现，Demo 只保留了占位。
 
-## 七、边界
+## 七、Android Studio 安装报错
+
+Android Studio 直接 Run 报：
+
+```text
+INSTALL_FAILED_VERIFICATION_FAILURE: Verification timed out
+```
+
+这不是 APK 问题，是设备上的车厂安装校验服务 `com.autoxt.service.base` 超时。测试机可以这样安装：
+
+```powershell
+adb shell pm disable-user --user 0 com.autoxt.service.base
+adb install -r app/build/outputs/apk/c12/debug/app-c12-debug.apk
+adb shell pm enable --user 0 com.autoxt.service.base
+```
+
+项目里有脚本：
+
+```powershell
+.	ools\install_demo.ps1 -Variant c12
+.	ools\install_demo.ps1 -Variant d15_tf
+.	ools\install_demo.ps1 -Variant q12
+```
+
+脚本会临时停用校验服务、安装、启动 APP，最后恢复服务。只建议在测试机上这样做。
+
+## 八、边界
+
 
 这是 UI/配置验证，不含真实 AVM 拼接、CAN、录像文件、native 标定；回放列表是模拟数据。  
 目标只是验证：**渠道包只换 profile/资源，不复制 Activity；同一 Activity 可以通过 layout/profile 呈现不同页面。**
